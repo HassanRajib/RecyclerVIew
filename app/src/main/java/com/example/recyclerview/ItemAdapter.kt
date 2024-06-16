@@ -8,11 +8,15 @@ import com.example.recyclerview.databinding.ItemLiBinding
 
 class ItemAdapter(private val itemList:ArrayList<items>):
     RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
+        var onClick: ((items) -> Unit)? = null
     class ViewHolder(val binding: ItemLiBinding) : RecyclerView.ViewHolder(binding.root) {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemLiBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            ItemLiBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -25,7 +29,11 @@ class ItemAdapter(private val itemList:ArrayList<items>):
         holder.binding.apply {
             itNa.text = item.name
             itPr.text = item.price
+
             imageView.setImageResource(item.image)
+        }
+        holder.itemView.setOnClickListener {
+            onClick?.invoke(item)
         }
     }
 }

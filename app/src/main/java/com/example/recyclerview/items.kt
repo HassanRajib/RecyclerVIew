@@ -5,4 +5,5 @@ data class items(
     val name: String,
     val price: String,
     val decs: String,
-)
+) {
+}
